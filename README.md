@@ -9,4 +9,4 @@ Run this app locally
 
 Start the app
 
-    npm run start
+    npm run dev
