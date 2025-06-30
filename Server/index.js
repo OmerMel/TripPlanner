@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import tripRoutes from "./routes/trip.route.js";
+import userRoutes from "./routes/user.route.js";
+import { swaggerDocs } from "./config/swagger.js";
 
 dotenv.config();
 
@@ -16,4 +18,5 @@ app.use("/api/users", userRoutes);
 app.listen(port, () => {
   connectDB();
   console.log(`Server is running on port ${port}`);
+  swaggerDocs(app);
 });
