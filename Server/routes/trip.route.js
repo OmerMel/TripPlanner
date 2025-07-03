@@ -33,13 +33,24 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             required:
- *               - title
- *               - description
+ *               - tripName
+ *               - tripType
+ *               - country
+ *               - city
  *             properties:
- *               title:
+ *               tripName:
  *                 type: string
- *               description:
+ *                 example: "טיול אופניים בגליל"
+ *               tripType:
  *                 type: string
+ *                 enum: [bicycle, trek]
+ *                 example: bicycle
+ *               country:
+ *                 type: string
+ *                 example: ישראל
+ *               city:
+ *                 type: string
+ *                 example: חיפה
  *     responses:
  *       201:
  *         description: Trip created

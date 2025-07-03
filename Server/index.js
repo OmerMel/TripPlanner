@@ -8,6 +8,7 @@ import { swaggerDocs } from "./config/swagger.js";
 dotenv.config();
 
 const app = express();
+
 const port = process.env.PORT || 5000;
 
 app.use(express.json()); // Middleware to parse JSON bodies
