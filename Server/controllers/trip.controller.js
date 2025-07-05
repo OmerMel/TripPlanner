@@ -1,21 +1,62 @@
 import Trip from "../models/trip.model.js";
 import { callLLMService } from "../services/llmService.js";
 import { v4 as uuidv4 } from "uuid";
+import mongoose from "mongoose";
 
-export const getAllTrips = async (req, res) => {
+//------------------------------------------------------------------
+// Generate a trip using LLM service without saving to the database
+//------------------------------------------------------------------
+export const generateTrip = async (req, res) => {
+  console.log("---- generateTrip START ----");
   try {
-    const trips = await Trip.find({});
-    res.status(200).json({ success: true, data: trips });
-  } catch (error) {
-    console.error("Error fetching trips:", error.message);
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch trips",
-      error: error.message,
-    });
+    const { tripName, tripType, country, city } = req.body;
+
+    // כאן אני למעשה אבצע קריאה בעתיד לצ'אט ואשלח לו את הפרטים שהמשתמש הכניס באתר והוא יחזיר לי את שאר הפרטים
+    const llmData = await callLLMService({ tripName, tripType, country, city });
+
+    const trip = {
+      ...llmData,
+      tripName,
+      tripType,
+      destination: { country, city },
+      userId: req.user.id, 
+    };
+
+    console.log("Generated trip:", trip);
+
+    res.status(200).json({ success: true, data: trip });
+  } catch (err) {
+    console.error("Error generating trip:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
+//----------------------------------------
+// Save the generated trip to the database
+//----------------------------------------
+export const saveGeneratedTrip = async (req, res) => {
+  console.log("---- saveGeneratedTrip START ----");
+  try {
+    const tripData = req.body;
+
+    const trip = new Trip({
+      _tripId: uuidv4(),
+      ...tripData,
+      userId: req.user.id,
+    });
+
+    await trip.save();
+
+    res.status(201).json({ success: true, data: trip });
+  } catch (err) {
+    console.error("Error saving generated trip:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+//----------------
+// Get trip by ID
+//----------------
 export const getTripById = async (req, res) => {
   const { id } = req.params;
 
@@ -35,6 +76,7 @@ export const getTripById = async (req, res) => {
       });
     }
     res.status(200).json({ success: true, data: trip });
+    console.log("Trip fetched successfully:", trip);
   } catch (error) {
     console.error("Error fetching trip by ID:", error.message);
     res.status(500).json({
@@ -45,58 +87,26 @@ export const getTripById = async (req, res) => {
   }
 };
 
-export const getAllTripsByUser = async (req, res) => {
-  const { userId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid user ID",
-    });
-  }
-
+//------------------------------------
+// Get all trips for the current user
+//------------------------------------
+export const getTripsForCurrentUser = async (req, res) => {
   try {
-    const trips = await Trip.find({ userId });
+    const trips = await Trip.find({ userId: req.user.id });
     res.status(200).json({ success: true, data: trips });
   } catch (error) {
-    console.error("Error fetching trips by user:", error.message);
+    console.error("Error fetching trips for current user:", error.message);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch trips for user",
+      message: "Failed to fetch trips for current user",
       error: error.message,
     });
   }
 };
 
-export const updateTrip = async (req, res) => {
-  const { id } = req.params;
-  const tripData = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid trip ID",
-    });
-  }
-
-  try {
-    const updatedTrip = await Trip.findByIdAndUpdate(id, tripData, {
-      new: true,
-    });
-    res.status(200).json({
-      success: true,
-      data: updatedTrip,
-    });
-  } catch (error) {
-    console.error("Error updating trip:", error.message);
-    res.status(500).json({
-      success: false,
-      message: "Failed to update trip",
-      error: error.message,
-    });
-  }
-};
-
+//------------------------
+// Delete trip by ID
+//------------------------
 export const deleteTrip = async (req, res) => {
   const { id } = req.params;
 
@@ -121,53 +131,84 @@ export const deleteTrip = async (req, res) => {
   }
 };
 
-// export const createTrip = async (req, res) => {
-//   const trip = req.body;
-//   if (!trip.tripName) {
-//     return res
-//       .status(400)
-//       .json({ success: false, message: "Trip name is required" });
-//   }
+//------------------------------------------------------------------------------
+// We are not using this function currently, but it can be useful in the future
+//------------------------------------------------------------------------------
 
-//   const newTrip = new Trip(trip);
+// //------------------------
+// // Get all trips
+// //------------------------
+// export const getAllTrips = async (req, res) => {
 //   try {
-//     await newTrip.save();
-//     res.status(201).json({ success: true, data: newTrip });
+//     const trips = await Trip.find({});
+//     res.status(200).json({ success: true, data: trips });
 //   } catch (error) {
-//     console.error("Error creating trip:", error.message);
+//     console.error("Error fetching trips:", error.message);
 //     res.status(500).json({
 //       success: false,
-//       message: "Failed to create trip",
+//       message: "Failed to fetch trips",
 //       error: error.message,
 //     });
 //   }
 // };
 
-export const createTrip = async (req, res) => {
-  console.log("---- createTrip START ----");
-  try {
-    const { tripName, tripType, country, city } = req.body;
+// //--------------------------
+// // Get all trips by user ID
+// //--------------------------
+// export const getAllTripsByUser = async (req, res) => {
+//   const { userId } = req.params;
 
-    // כאן אני למעשה אבצע קריאה בעתיד לצ'אט ואשלח לו את הפרטים שהמשתמש הכניס באתר והוא יחזיר לי את שאר הפרטים
-    const llmData = await callLLMService({ tripName, tripType, country, city });
+//   if (!mongoose.Types.ObjectId.isValid(userId)) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "Invalid user ID",
+//     });
+//   }
 
-    const trip = new Trip({
-      _tripId: uuidv4(), // Creating a unique trip ID
-      ...llmData,
-      tripName,
-      tripType,
-      destination: { country, city },
-      userId: req.user.id,
-    });
-    console.log("requestData:", { tripName, tripType, country, city });
-    console.log("llmData:", llmData);
-    console.log("req.user:", req.user);
+//   try {
+//     const trips = await Trip.find({ userId });
+//     res.status(200).json({ success: true, data: trips });
+//   } catch (error) {
+//     console.error("Error fetching trips by user:", error.message);
+//     res.status(500).json({
+//       success: false,
+//       message: "Failed to fetch trips for user",
+//       error: error.message,
+//     });
+//   }
+// };
 
-    await trip.save();
+// //-------------------
+// // Create a new trip
+// //-------------------
+// export const createTrip = async (req, res) => {
+//   console.log("---- createTrip START ----");
+//   try {
+//     const { tripName, tripType, country, city } = req.body;
 
-    res.status(201).json({ success: true, data: trip });
-  } catch (err) {
-    console.error("Error creating trip:", err);
-    res.status(500).json({ success: false, message: err.message });
-  }
-};
+//     const llmData = await callLLMService({ tripName, tripType, country, city }); 
+
+//     const trip = new Trip({
+//       _tripId: uuidv4(), // Creating a unique trip ID
+//       ...llmData,
+//       tripName,
+//       tripType,
+//       destination: { country, city },
+//       userId: req.user.id,
+//     });
+//     console.log("requestData:", { tripName, tripType, country, city });
+//     console.log("llmData:", llmData);
+//     console.log("req.user:", req.user);
+
+//     await trip.save();
+
+//     res.status(201).json({ success: true, data: trip });
+//   } catch (err) {
+//     console.error("Error creating trip:", err);
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
+
+
+
