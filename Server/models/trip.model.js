@@ -3,8 +3,6 @@ import mongoose, { Schema } from "mongoose";
 const tripSchema = new mongoose.Schema(
   {
     _tripId: {
-      // Unique identifier for the trip
-      // type: Schema.Types.UUID,
       type: String,
       required: true,
       unique: true,
@@ -21,7 +19,6 @@ const tripSchema = new mongoose.Schema(
       maxLength: 300,
     },
     tripType: {
-      // Type of trip, e.g., bicycle or hike
       type: String,
       required: true,
       enum: ["bicycle", "trek"],
@@ -151,7 +148,7 @@ const tripSchema = new mongoose.Schema(
 
     difficulty: {
       type: String,
-      enum: ["easy", "medium", "hard"],
+      enum: ["קל", "בינוני", "קשה"],
       required: false,
     },
   },

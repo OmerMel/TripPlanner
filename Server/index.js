@@ -1,11 +1,11 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
 import { connectDB } from "./config/db.js";
 import tripRoutes from "./routes/trip.route.js";
 import userRoutes from "./routes/user.route.js";
 import { swaggerDocs } from "./config/swagger.js";
 
-dotenv.config();
 
 const app = express();
 
