@@ -11,7 +11,6 @@ export const generateTrip = async (req, res) => {
   try {
     const { tripName, tripType, country, city } = req.body;
 
-    // כאן אני למעשה אבצע קריאה בעתיד לצ'אט ואשלח לו את הפרטים שהמשתמש הכניס באתר והוא יחזיר לי את שאר הפרטים
     const llmData = await callLLMService({ tripName, tripType, country, city });
 
     const trip = {
