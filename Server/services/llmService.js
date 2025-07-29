@@ -1,5 +1,6 @@
-// Server/services/llmService.js
 import OpenAI from "openai";
+import axios from "axios";
+import { fetchImage } from "./imageService.js"; // ודא שזו הפונקציה שצירפת
 
 export async function callLLMService(input) {
   const openai = new OpenAI({
@@ -126,10 +127,28 @@ export async function callLLMService(input) {
   const textResponse = completion.choices[0].message.content; // The location of the text returned by the model.
   console.log("Raw response:", textResponse);
 
+  let parsedTrip;
   try {
-    return JSON.parse(textResponse);
+    parsedTrip = JSON.parse(textResponse);
   } catch (err) {
     console.error("Failed to parse JSON:", err);
     throw new Error("Invalid JSON response from LLM");
   }
+
+  // Added image fetching logic
+  try {
+    const imageUrl = await fetchImage(`${input.country}, ${input.city}`);
+    parsedTrip.image = {
+      url: imageUrl,
+      description: `תמונה של ${input.city} או הסביבה.`,
+    };
+  } catch (err) {
+    console.warn("Failed to fetch image, using default.");
+    parsedTrip.image = {
+      url: "/images/default_trip.png",
+      description: "תמונה ברירת מחדל.",
+    };
+  }
+
+  return parsedTrip;
 }
