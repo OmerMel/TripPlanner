@@ -1,0 +1,74 @@
+/* עיצוב עמוד הרשמה */
+
+.register-page {
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 50px 30px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.7s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-page h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2e7d32; /* ירוק כהה */
+  margin-bottom: 30px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.register-form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #444;
+  text-align: right;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #cfd8dc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #81c784;
+  background-color: #fff;
+}
+
+.register-btn {
+  font-size: 1rem;
+  padding: 14px;
+  background: linear-gradient(90deg, #43a047, #81c784);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(67, 160, 71, 0.2);
+}
+
+.register-btn:hover {
+  background: linear-gradient(90deg, #388e3c, #66bb6a);
+}
+
+/* רקע כללי */
+body {
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}

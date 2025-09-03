@@ -1,0 +1,20 @@
+{
+    "name": "trip-planner",
+    "private": true,
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "scripts": {
+        "dev": "npm-run-all -l -p dev:server dev:client",
+        "dev:server": "npm run --workspace ./server dev",
+        "dev:client": "npm run --workspace ./client start",
+        "build": "npm run --workspace ./server build --if-present && npm run --workspace ./client build",
+        "test": "npm test --workspace ./server --if-present && npm test --workspace ./client --if-present",
+        "audit": "npm audit --workspaces",
+        "update:deps": "npm update --workspaces && npm dedupe"
+    },
+    "devDependencies": {
+        "npm-run-all": "^4.1.5"
+    }
+}

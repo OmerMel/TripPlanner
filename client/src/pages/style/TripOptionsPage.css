@@ -1,0 +1,67 @@
+.trip-options-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: #ffffff; /* שינוי לרקע לבן כמו הדף הקודם */
+  border-radius: 12px; /* עיגול מעט יותר כמו הدף הקודם */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1); /* צל עמוק יותר כמו הדף הקודם */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.trip-options-container h1 {
+  text-align: center;
+  font-size: 2.2rem; /* גודל כמו הדף הקודם */
+  color: #3c7c51; /* צבע ירוק כמו הדף הקודם */
+  margin-bottom: 24px;
+  /* הוספת אנימציה לכותרת */
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out 0.1s forwards;
+}
+
+.trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* אנימציה מדורגת לכל אלמנט ברשימת הטיולים */
+.trip-list > * {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* עיכוב מדורג לכל אלמנט ברשימה */
+.trip-list > *:nth-child(1) { animation-delay: 0.2s; }
+.trip-list > *:nth-child(2) { animation-delay: 0.3s; }
+.trip-list > *:nth-child(3) { animation-delay: 0.4s; }
+.trip-list > *:nth-child(4) { animation-delay: 0.5s; }
+.trip-list > *:nth-child(5) { animation-delay: 0.6s; }
+.trip-list > *:nth-child(6) { animation-delay: 0.7s; }
+.trip-list > *:nth-child(7) { animation-delay: 0.8s; }
+.trip-list > *:nth-child(8) { animation-delay: 0.9s; }
+.trip-list > *:nth-child(9) { animation-delay: 1.0s; }
+.trip-list > *:nth-child(10) { animation-delay: 1.1s; }
+
+/* אם יש כפתורים או אלמנטים נוספים, ניתן להוסיף להם אנימציה */
+.trip-options-container button {
+  transition: background 0.3s, transform 0.2s;
+  border-radius: 8px;
+}
+
+.trip-options-container button:hover {
+  transform: translateY(-2px);
+}
+
+/* הגדרת האנימציה */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

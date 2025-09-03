@@ -1,0 +1,60 @@
+.weather-forecast-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  max-width: 400px;
+}
+
+.weather-current {
+  background: #e6f3f1;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.weather-current-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.weather-current-info h3 {
+  margin: 4px 0;
+  font-size: 24px;
+  color: #007acc;
+}
+
+.weather-upcoming-title {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.weather-upcoming-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weather-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.weather-day-date {
+  font-weight: bold;
+}
+
+.weather-day-desc {
+  font-size: 14px;
+  color: #555;
+}
+
+.weather-day-temp {
+  font-size: 14px;
+}
