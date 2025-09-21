@@ -16,3 +16,4 @@ server/dist
 
 # editor files
 .vscode/
+.idea/
