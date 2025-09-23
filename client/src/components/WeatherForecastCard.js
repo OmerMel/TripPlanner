@@ -4,7 +4,7 @@ import "./style/WeatherForecastCard.css";
 function WeatherForecastCard({ currentTemp, currentDescription, upcomingDays }) {
   return (
     <div className="weather-forecast-card" dir="rtl">
-      <h2>תחזית מזג האוויר לשלושה ימים</h2>
+      <h2>תחזית מזג האוויר לימים הבאים</h2>
 
       <div className="weather-current">
         <div className="weather-current-info">
@@ -14,7 +14,6 @@ function WeatherForecastCard({ currentTemp, currentDescription, upcomingDays }) 
         </div>
       </div>
 
-      <h3 className="weather-upcoming-title">תחזית לימים הקרובים</h3>
       <div className="weather-upcoming-list">
         {upcomingDays?.map((day) => (
           <div key={day.date} className="weather-day">
