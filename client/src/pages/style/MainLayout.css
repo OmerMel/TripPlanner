@@ -1,80 +1,94 @@
-/* פריסת הלייאאוט */
+/* Layout container */
 .main-layout {
-  display: flex;
+  display: flex; /* vertical stacking */
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; /* full screen height */
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
+  background-color: #f5f7fa; /* light background */
 }
 
-/* בר הניווט */
+/* Navigation bar */
 .main-nav {
-  display: flex;
+  display: flex; /* align logo + buttons in a row */
   align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(90deg, #3c7c51, #81c784);
+  justify-content: space-between; /* logo left, buttons right */
+  background: linear-gradient(90deg, #3c7c51, #81c784); /* green gradient */
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  position: sticky;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* subtle shadow */
+  position: sticky; /* stay at top while scrolling */
   top: 0;
-  z-index: 10;
+  z-index: 2000; /* force navbar above map and Leaflet controls */
+  isolation: isolate; /* create a new stacking context */
 }
 
-/* לוגו */
+/* Logo image */
 .nav-logo img {
-  height: 70px;
+  height: 70px; /* fixed logo height */
 }
 
-/* סימניות */
+/* Navigation items container */
 .nav-items {
   display: flex;
-  gap: 40px;
+  gap: 40px; /* spacing between buttons */
 }
 
-/* כפתורים */
+/* Navigation + logout buttons */
 .nav-items button,
 .nav-logout button {
-  background: transparent;
+  background: transparent; /* no background */
   border: none;
   padding: 12px 16px;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  color: #203126;  /* <<< כאן הצבע החדש */
+  color: #203126; /* dark green text */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* icon on top, text under */
   align-items: center;
   gap: 4px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  border-radius: 50%; /* circular hover effect */
+  transition: all 0.3s ease; /* smooth hover */
 }
 
-/* ריחוף */
+/* Hover effect on nav buttons */
 .nav-items button:hover,
 .nav-logout button:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* כפתור פעיל */
+/* Active nav button (current page) */
 .nav-items button.active {
   background: rgba(255, 255, 255, 0.3);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
-/* אנימציה לתוכן */
+/* Main content area */
 .main-content {
   flex: 1;
   padding: 30px;
-  animation: fadeIn 0.7s ease;
+  animation: fadeIn 0.7s ease; /* fade animation when loading */
 }
 
+/* Fade animation keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px); /* slide slightly up */
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Fix Leaflet map overlapping the navbar */
+.leaflet-container {
+  z-index: 0 !important; /* keep map below navbar */
+}
+
+/* Ensure map placeholder and map itself are correctly stacked */
+.trip-map-placeholder,
+.trip-map {
+  position: relative;
+  z-index: 1; /* below navbar, above page background */
 }
