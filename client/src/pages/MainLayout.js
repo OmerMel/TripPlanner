@@ -10,9 +10,10 @@ function MainLayout() {
 
   const isActive = (path) => location.pathname === path;
 
+  // Handle logout
   function handleLogout() {
     localStorage.clear();
-    navigate("/landing");
+    navigate("/");
   }
 
   return (

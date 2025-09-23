@@ -8,9 +8,9 @@ function LandingPage() {
   return (
     <div className="landing-container" dir="rtl">
       <header className="landing-header">
-        <h1>מתכנן הטיולים האישי שלך</h1>
+        <h1>GoTrip</h1>
         <p>
-          תכנן מסלול מושלם בליווי בינה מלאכותית, תחזית מזג אוויר והמלצות מותאמות
+          תכנן טיול בליווי בינה מלאכותית, וקבל תחזית מזג אוויר והמלצות מותאמות
           אישית
         </p>
       </header>

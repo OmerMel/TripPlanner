@@ -65,7 +65,7 @@ function TripOptionsPage() {
         alert("שגיאה במחיקת הטיול.");
       }
     } else {
-      // עדיין לא נשמר => שמירה
+      // Not saved yet => Save
       try {
         const response = await axios.post("/api/trips/save", trip, {
           headers: { Authorization: `Bearer ${token}` },
