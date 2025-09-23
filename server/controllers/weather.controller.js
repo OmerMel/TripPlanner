@@ -24,7 +24,7 @@ export const getWeatherForecast = async (req, res) => {
     res.status(200).json({
       success: true,
       currentTemp: Math.round(data.current.temperature_2m),
-      forecast: data.daily.time.slice(0, 3).map((date, index) => ({
+      forecast: data.daily.time.slice(1, 4).map((date, index) => ({
         date,
         min: Math.round(data.daily.temperature_2m_min[index]),
         max: Math.round(data.daily.temperature_2m_max[index]),

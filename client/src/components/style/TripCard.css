@@ -46,19 +46,21 @@
 
 /* The heart */
 .favorite-icon {
-  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e3e3e3;
+  border-radius: 9999px;
+  background: #fff;
+  display: grid;
+  place-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-  color: #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .favorite-icon:hover {
-  transform: scale(1.2);
-  color: #ff6b6b;
-}
-
-.favorite-icon.favorited {
-  color: #ff6b6b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 
 /* Card content */

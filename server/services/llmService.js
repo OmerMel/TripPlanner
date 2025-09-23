@@ -116,7 +116,9 @@ export async function callLLMService(input) {
 `;
 
   const completion = await openai.chat.completions.create({
-    model: "llama3-70b-8192",
+    // model: "llama3-70b-8192",
+model: "llama-3.1-8b-instant",
+    
     messages: [
       { role: "system", content: "אתה מסייע ביצירת תוכן טיולים." },
       { role: "user", content: prompt },
