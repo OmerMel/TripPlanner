@@ -1,5 +1,7 @@
 import React from "react";
 import "./style/TripCard.css";
+import FavoriteIcon from "@mui/icons-material/Favorite"; 
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 function TripCard({
   tripName,
@@ -18,6 +20,7 @@ function TripCard({
 
   return (
     <div className={`trip-card ${className}`} onClick={onClick}>
+      {/* //////////////////////////////////////////////////////////////////////// */}
       {/* Image */}
       <img
         src={imageUrl || defaultImageUrl}
@@ -25,6 +28,7 @@ function TripCard({
         className="trip-card-image"
       />
 
+      {/* //////////////////////////////////////////////////////////////////////// */}
       {/* Favorite button */}
       <div className="trip-card-bar">
         <div
@@ -35,10 +39,15 @@ function TripCard({
           }}
           title={isFavorite ? "הסר ממועדפים" : "הוסף למועדפים"}
         >
-          {isFavorite ? "❤️" : "🤍"}
+          {isFavorite ? (
+            <FavoriteIcon style={{ color: "red" }} />
+          ) : (
+            <FavoriteBorderIcon style={{ color: "red" }} />
+          )}
         </div>
       </div>
 
+      {/* //////////////////////////////////////////////////////////////////////// */}
       {/* Card content */}
       <div className="trip-card-content">
         <h3>{tripName}</h3>
