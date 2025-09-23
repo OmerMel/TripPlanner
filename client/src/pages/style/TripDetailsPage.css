@@ -133,4 +133,32 @@
   border-radius: 12px;
 }
 
+/* Favorite button */
+.trip-actions {
+  display: flex;
+  justify-content: flex-end; /* The heart is on the left side */
+  margin: 8px 0 20px;
+}
+
+.favorite-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e3e3e3;
+  border-radius: 9999px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.favorite-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+
+
+
 
