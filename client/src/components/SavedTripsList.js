@@ -14,7 +14,11 @@ function SavedTripsList({ trips, onDelete, onClick, limit }) {
   const tripsToShow = limit ? trips.slice(0, limit) : trips;
 
   if (tripsToShow.length === 0) {
-    return <p>לא נמצאו מסלולים.</p>;
+    return (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <p>לא נמצאו מסלולים.</p>
+    </div>
+    );
   }
 
   return (
