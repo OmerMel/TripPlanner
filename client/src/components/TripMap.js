@@ -31,6 +31,7 @@
 
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 function TripMap({ startPoint, endPoint, waypoints }) {
@@ -73,11 +74,19 @@ function TripMap({ startPoint, endPoint, waypoints }) {
     fetchRoute();
   }, [startPoint, endPoint, waypoints]);
 
+    // אייקון מותאם אישית לנקודות
+    const waypointIcon = new L.Icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // אייקון pin
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+
   return (
     <MapContainer center={[startPoint.lat, startPoint.lng]} zoom={12} style={{ height: "400px", width: "100%" }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {[startPoint, ...waypoints, endPoint].map((p, i) => (
-        <Marker key={i} position={[p.lat, p.lng]} />
+        <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon}/>
       ))}
       {routeCoords.length > 0 && <Polyline positions={routeCoords} color="blue" />}
     </MapContainer>
