@@ -1,34 +1,3 @@
-// import React from "react";
-// import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
-
-// function TripMap({ startPoint, endPoint, waypoints }) {
-//   const positions = [
-//     [startPoint.lat, startPoint.lng],
-//     ...waypoints
-//       .sort((a, b) => a.order - b.order)
-//       .map((wp) => [wp.lat, wp.lng]),
-//     [endPoint.lat, endPoint.lng]
-//   ];
-
-//   return (
-//     <MapContainer
-//       center={[startPoint.lat, startPoint.lng]}
-//       zoom={10}
-//       style={{ height: "400px", width: "100%" }}
-//     >
-//       <TileLayer
-//         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//       />
-//       {positions.map((pos, index) => (
-//         <Marker key={index} position={pos} />
-//       ))}
-//       <Polyline positions={positions} color="blue" />
-//     </MapContainer>
-//   );
-// }
-
-// export default TripMap;
-
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import L from "leaflet";
@@ -39,13 +8,11 @@ function TripMap({ startPoint, endPoint, waypoints }) {
 
   useEffect(() => {
     const fetchRoute = async () => {
-      // const apiKey = "YOUR_API_KEY"; // תקבל מ־OpenRouteService
-
-      const apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjgyNjUyNjM4MThkNTQwMTdiMjQ5YmE4YTZkYzUxYTVmIiwiaCI6Im11cm11cjY0In0="; // תקבל מ־OpenRouteService
+      const apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjgyNjUyNjM4MThkNTQwMTdiMjQ5YmE4YTZkYzUxYTVmIiwiaCI6Im11cm11cjY0In0="
 
 
       const coords = [
-        [startPoint.lng, startPoint.lat], // שים לב! lng לפני lat
+        [startPoint.lng, startPoint.lat],
         ...waypoints
           .sort((a, b) => a.order - b.order)
           .map((wp) => [wp.lng, wp.lat]),
@@ -64,7 +31,9 @@ function TripMap({ startPoint, endPoint, waypoints }) {
         });
 
         const data = await res.json();
-        const route = data.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]); // החזרה לפורמט leaflet
+        const route = data.features[0].geometry.coordinates.map(
+          ([lng, lat]) => [lat, lng]
+        ); // Back to leaflet format
         setRouteCoords(route);
       } catch (err) {
         console.error("Routing error:", err);
@@ -74,21 +43,27 @@ function TripMap({ startPoint, endPoint, waypoints }) {
     fetchRoute();
   }, [startPoint, endPoint, waypoints]);
 
-    // אייקון מותאם אישית לנקודות
-    const waypointIcon = new L.Icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // אייקון pin
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32],
-    });
+  // pin icon for waypoints
+  const waypointIcon = new L.Icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // pin icon
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
 
   return (
-    <MapContainer center={[startPoint.lat, startPoint.lng]} zoom={12} style={{ height: "400px", width: "100%" }}>
+    <MapContainer
+      center={[startPoint.lat, startPoint.lng]}
+      zoom={12}
+      style={{ height: "400px", width: "100%" }}
+    >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {[startPoint, ...waypoints, endPoint].map((p, i) => (
-        <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon}/>
+        <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon} />
       ))}
-      {routeCoords.length > 0 && <Polyline positions={routeCoords} color="blue" />}
+      {routeCoords.length > 0 && (
+        <Polyline positions={routeCoords} color="blue" />
+      )}
     </MapContainer>
   );
 }

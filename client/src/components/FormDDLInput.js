@@ -18,7 +18,7 @@ function FormDDLInput({
       {/* Display the label above the input */}
       <label>{label}</label>
 
-      {/* Autocomplete version */}
+      {/* Autocomplete */}
       {autocomplete ? (
         <Autocomplete
           freeSolo             // Allows free text input (not limited to options)
@@ -46,8 +46,7 @@ function FormDDLInput({
         />
       ) : (
         <>
-          {/* This <br /> adds spacing between label and <select>. 
-              You can remove it if you use CSS for spacing (recommended). */}
+          {/* This <br /> adds spacing between label and <select> */}
           <br />
           <select
             value={value}           // Current value

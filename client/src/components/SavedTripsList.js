@@ -11,9 +11,9 @@ import TripCard from "./TripCard";
  * @return {JSX.Element} Rendered list of trip cards or a message if no trips are found.
  */
 function SavedTripsList({ trips, onDelete, onClick, limit }) {
-  const tripsToShow = limit ? trips.slice(0, limit) : trips;
+  const tripsToShow = limit ? trips.slice(0, limit) : trips; // "slice" creates a new array of trips from the first cell up to the limit
 
-  if (tripsToShow.length === 0) {
+  if (tripsToShow.length === 0) { // === means that check both value and type are the same
     return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
       <p>לא נמצאו מסלולים.</p>
