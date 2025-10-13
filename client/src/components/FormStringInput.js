@@ -7,13 +7,14 @@ function FormStringInput({ label, type = "text", value, onChange, required = tru
   return (
     <div>
       <label>{label}</label>
-      <br />
+      
       <input
         type={type}
         value={value}
         onChange={onChange}
         required={required}
         placeholder={placeholder}
+        style={{ width: "350px" }}
       />
     </div>
   );

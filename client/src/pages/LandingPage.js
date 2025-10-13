@@ -15,10 +15,10 @@ function LandingPage() {
         </p>
       </header>
       <div className="landing-actions">
-        <button className="primary-btn" onClick={() => navigate("/register")}>
+        <button className="register-btn" onClick={() => navigate("/register")}>
           הרשמה
         </button>
-        <button className="secondary-btn" onClick={() => navigate("/login")}>
+        <button className="signin-btn" onClick={() => navigate("/login")}>
           התחברות
         </button>
 
