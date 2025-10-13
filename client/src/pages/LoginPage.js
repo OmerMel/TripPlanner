@@ -11,9 +11,13 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  ////////////////////////////////////////////////////////////////////////
+  // Handle form submission
+  ////////////////////////////////////////////////////////////////////////
   async function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior - Prevent page refresh
 
+    // Input validation
     if (!validation.validateEmail(email)) {
       alert("אנא הזן כתובת אימייל חוקית");
       return;
@@ -45,6 +49,9 @@ function LoginPage() {
 
   return (
     <div dir="rtl" className="login-page">
+      <button type="button" className="login-back-btn" onClick={() => navigate("/")}>
+          ➔
+      </button>
       <h1>התחברות</h1>
       <form onSubmit={handleSubmit} className="login-form">
         <FormStringInput
@@ -59,7 +66,7 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className="login-btn">
+        <button type="submit" className="login-btn" style={{ width: "350px" }}>
           התחבר
         </button>
       </form>

@@ -1,4 +1,3 @@
-// src/components/MainLayout.js
 import React from "react";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { Home, Map, Bookmark, Logout } from "@mui/icons-material";
@@ -7,8 +6,8 @@ import "./style/MainLayout.css";
 function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const isActive = (path) => location.pathname === path;
+  // Function that takes one parameter – path, and checks if the current path in the URL is the same as it.
+  const isActive = (path) => location.pathname === path; 
 
   // Handle logout
   function handleLogout() {
@@ -25,7 +24,6 @@ function MainLayout() {
         </div>
 
         {/* Buttons */}
-
         <div className="nav-items">
           {/* Home page Button */}
           <button

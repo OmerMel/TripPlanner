@@ -14,6 +14,9 @@ function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
+  /////////////////////////////////////////////////////////////////
+  // Handle form submission
+  /////////////////////////////////////////////////////////////////
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -44,6 +47,7 @@ function RegisterPage() {
     }
 
     try {
+      // HTTP POST request - Send registration data to the server 
       const response = await axios.post("/api/users/register", {
         username: `${firstName} ${lastName}`,
         email,
@@ -64,6 +68,9 @@ function RegisterPage() {
 
   return (
     <div dir="rtl" className="register-page">
+      <button type="back" className="login-back-btn" onClick={() => navigate("/")}>
+          ➔
+      </button>
       <h1>הרשמה</h1>
       <form onSubmit={handleSubmit} className="register-form">
         <FormStringInput

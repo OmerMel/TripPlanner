@@ -15,7 +15,9 @@ function PlannerPage() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  //////////////////////////////////////////////////////////////////
   // DDL for countries
+  //////////////////////////////////////////////////////////////////
   useEffect(() => {
     async function fetchCountries() {
       try {
@@ -32,7 +34,9 @@ function PlannerPage() {
     fetchCountries();
   }, []);
 
+  //////////////////////////////////////////////////////////////////
   // DDL for cities based on selected country
+  //////////////////////////////////////////////////////////////////
   useEffect(() => {
     if (!country) {
       setCities([]);
@@ -55,13 +59,15 @@ function PlannerPage() {
     fetchCities();
   }, [country]);
 
+  //////////////////////////////////////////////////////////////////
   // Sending the trip data to the server when the form is submitted
+  //////////////////////////////////////////////////////////////////
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
 
-    if (isSubmitting) return; // הגנה מ-Double Submit
+    if (isSubmitting) return; // Double Submit Protection
 
-    setIsSubmitting(true); // התחלת טעינה
+    setIsSubmitting(true); // Starting loading
 
     const tripTypeMap = {
       "טיול אופניים": "bicycle",
@@ -91,6 +97,7 @@ function PlannerPage() {
         return;
       }
 
+      // Send POST request to the server
       const response = await axios.post("/api/trips/generate", requestData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -156,6 +163,7 @@ function PlannerPage() {
           type="submit"
           className="planner-submit"
           disabled={isSubmitting}
+          style={{ width: "350px" }}
         >
           {isSubmitting ? "מייצר מסלול..." : "צור מסלול"}
         </button>

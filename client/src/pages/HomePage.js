@@ -8,7 +8,7 @@ function HomePage() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useState([]); // Create a new state variable called trips, which starts as an empty array
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,9 +55,12 @@ function HomePage() {
 
 const handleDeleteFavorite = async (tripId) => {
     const previousTrips = [...trips];
+    // Take the previous trip list (prev), filter it for the trip with this id, and save the new list in state.
     setTrips((prev) => prev.filter((trip) => trip.id !== tripId));
 
     try {
+      //Send an HTTP DELETE request to /api/trips/<trip-id> and include the token in the header 
+      // to verify that the user is authorized to delete.
       await axios.delete(`/api/trips/${tripId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -78,7 +81,7 @@ const handleDeleteFavorite = async (tripId) => {
           לצפות בתחזית מזג האוויר הקרובה ולנהל מסלולים מועדפים לשימוש עתידי.
       </p>
 
-      <h2 style={{ textAlign: "center", marginBottom: "16px", color: "#3c7c51" }}>
+      <h2 className="saved-trips-title">
         המסלולים השמורים שלך
       </h2>
 

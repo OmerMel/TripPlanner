@@ -15,9 +15,13 @@ function FormDDLInput({
 }) {
   return (
     <div className="form-group">
+      
       {/* Display the label above the input */}
       <label>{label}</label>
 
+          {/* /////////////////////////////////////////////////////////////////////////// */}
+          {/* Autocomplete or standard <select> based on the 'autocomplete' prop */}
+          {/* /////////////////////////////////////////////////////////////////////////// */}
       {/* Autocomplete */}
       {autocomplete ? (
         <Autocomplete
@@ -28,6 +32,7 @@ function FormDDLInput({
           value={value}        // Current value
           onInputChange={(event, newValue) => onChange(newValue)} // Update value when user types
           disabled={disabled}  // Disable input if needed
+          style={{ width: "350px" }}
           renderOption={(props, option) => (
             // Render each option with custom direction
             <li {...props}>
@@ -43,16 +48,20 @@ function FormDDLInput({
               disabled={disabled}
             />
           )}
+          
         />
       ) : (
-        <>
-          {/* This <br /> adds spacing between label and <select> */}
-          <br />
+        <>         
+
+          {/* /////////////////////////////////////////////////////////////////////////// */}
+          {/* Standard HTML <select> dropdown */}
+          {/* /////////////////////////////////////////////////////////////////////////// */}
           <select
             value={value}           // Current value
             onChange={onChange}     // Update value on change
             required={required}     // HTML required validation
             disabled={disabled}     // Disable the dropdown
+            style={{ width: "350px" }}
           >
             {/* Placeholder option shown when no value is selected */}
             <option value="">{placeholder}</option>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SavedTripsList from "../components/SavedTripsList";
-import "./style/TripOptionsPage.css";
+import "./style/HistoryPage.css";
+
 
 function HistoryPage() {
   const navigate = useNavigate();
@@ -10,6 +11,10 @@ function HistoryPage() {
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(true);
 
+
+  /////////////////////////////////////////////////////////////////////////
+  // Fetch the user's saved trips from the backend when the component mounts.
+  /////////////////////////////////////////////////////////////////////////
   useEffect(() => {
     async function fetchUserTrips() {
       try {
@@ -44,11 +49,17 @@ function HistoryPage() {
     fetchUserTrips();
   }, [token, navigate]);
 
+  /////////////////////////////////////////////////////////////////////////
+  // Delete a favorite trip from the user's saved trips list.
+  /////////////////////////////////////////////////////////////////////////
   const handleDeleteFavorite = async (tripId) => {
     const previousTrips = [...trips];
+    // Take the previous trip list (prev), filter it for the trip with this id, and save the new list in state.
     setTrips((prev) => prev.filter((trip) => trip.id !== tripId));
 
     try {
+      //Send an HTTP DELETE request to /api/trips/<trip-id> and include the token in the header 
+      // to verify that the user is authorized to delete.
       await axios.delete(`/api/trips/${tripId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -60,12 +71,15 @@ function HistoryPage() {
     }
   };
 
+  /////////////////////////////////////////////////////////////////////////
+  // Navigate to the trip details page when a trip card is clicked.
+  /////////////////////////////////////////////////////////////////////////
   const handleCardClick = (tripId) => {
     navigate(`/tripdetails/${tripId}`);
   };
 
   return (
-    <div dir="rtl" className="trip-options-container">
+    <div dir="rtl" className="history-page">
       <h1>המסלולים השמורים שלי</h1>
       {loading ? (
         <p>טוען מסלולים...</p>
