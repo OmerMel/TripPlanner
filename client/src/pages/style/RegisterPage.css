@@ -1,5 +1,4 @@
-/* עיצוב עמוד הרשמה */
-
+/* Registration page design */
 .register-page {
   max-width: 480px;
   margin: 60px auto;
@@ -9,12 +8,16 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.7s ease;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;                  
+  flex-direction: column;
+  align-items: center;             
+  position: relative; 
 }
 
 .register-page h1 {
   text-align: center;
   font-size: 2.2rem;
-  color: #2e7d32; /* ירוק כהה */
+  color: #2e7d32; 
   margin-bottom: 30px;
 }
 
@@ -66,9 +69,19 @@
   background: linear-gradient(90deg, #388e3c, #66bb6a);
 }
 
-/* רקע כללי */
-body {
-  background-color: #f5f7fa;
-  margin: 0;
-  padding: 0;
+.login-back-btn {
+  font-size: 1rem;
+  padding: 14px;
+  background: linear-gradient(90deg, #43a047, #81c784);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(67, 160, 71, 0.2);
+}
+
+.login-back-btn:hover {
+  background: linear-gradient(90deg, #388e3c, #66bb6a);
 }

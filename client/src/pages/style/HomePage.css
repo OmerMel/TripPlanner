@@ -9,9 +9,17 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Tittle */
+/* Welcome Tittle */
 .home-page h1 {
   font-size: 2rem;
+  color: #3c7c51;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Saved trips Tittle */
+.home-page h2 {
+  font-size: 1.3rem;
   color: #3c7c51;
   margin-bottom: 16px;
   text-align: center;
@@ -26,37 +34,9 @@
   text-align: center;
 }
 
-
-/* Information card */
-.about-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 32px;
-}
-
 /* Saved trips section */
 .saved-trips-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
-}
-
-
-/* Card design -> small */
-.trip-card.small {
-  width: 250px;
-  flex-direction: column;
-  text-align: right;
-}
-
-.trip-card.small .trip-card-image {
-  width: 100%;
-  height: 160px;
-  border-radius: 12px 12px 0 0;
-}
-
-.trip-card.small .trip-card-content {
-  padding: 12px;
 }
