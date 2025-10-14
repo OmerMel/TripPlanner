@@ -51,16 +51,21 @@ function TripMap({ startPoint, endPoint, waypoints }) {
     popupAnchor: [0, -32],
   });
 
-  return (
+    return (
     <MapContainer
       center={[startPoint.lat, startPoint.lng]}
       zoom={12}
       style={{ height: "400px", width: "100%" }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {[startPoint, ...waypoints, endPoint].map((p, i) => (
-        <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon} />
-      ))}
+
+      <Marker position={[startPoint.lat, startPoint.lng]} icon={waypointIcon} />
+      <Marker position={[endPoint.lat, endPoint.lng]} icon={waypointIcon} />
+
+      {/*{[startPoint, ...waypoints, endPoint].map((p, i) => (*/}
+      {/*    <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon} />*/}
+      {/*))}*/}
+
       {routeCoords.length > 0 && (
         <Polyline positions={routeCoords} color="blue" />
       )}
