@@ -21,7 +21,7 @@ export const generateTrip = async (req, res) => {
       userId: req.user.id, 
     };
 
-    console.log("Generated trip:", trip);
+      console.log("Generated trip:", JSON.stringify(trip, null, 2));
 
     res.status(200).json({ success: true, data: trip });
   } catch (err) {
