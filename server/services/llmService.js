@@ -76,7 +76,7 @@ async function callOnce(openai, prompt) {
     const completion = await openai.chat.completions.create({
         model: "gpt-5-nano-2025-08-07",
         messages: [
-            { role: "system", content: "אתה מסייע ביצירת תוכן טיולים." },
+            { role: "system", content: "You are a expert trip planner." },
             { role: "user", content: prompt },
         ],
         temperature: 1
@@ -118,9 +118,9 @@ export async function callLLMService(input) {
             .join("; ");
 
         extraNote = `
-חלק מהנקודות שהצעת נמצאות במים ולא על קרקע: ${badList}.
-אנא החלף לנקודות יבשתיות בלבד (על שבילים/כבישים), ושמור על אותו פורמט JSON (RAW בלבד).
-`.trim();
+        Some of the points you suggested are located in water instead of on land: ${badList}.
+        Please replace them with land-based points only (on paths/roads), and keep the same JSON format (RAW only).
+        `.trim();
 
         lastTrip = trip;
     }
@@ -135,6 +135,7 @@ export async function callLLMService(input) {
         lastTrip.image = {
             url: imageUrl,
             description: `תמונה של ${input.city} או הסביבה.`,
+            isGenerated: true
         };
     } catch {
         lastTrip.image = {
