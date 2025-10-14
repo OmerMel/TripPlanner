@@ -8,7 +8,7 @@ function TripMap({ startPoint, endPoint, waypoints }) {
 
   useEffect(() => {
     const fetchRoute = async () => {
-      const apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjgyNjUyNjM4MThkNTQwMTdiMjQ5YmE4YTZkYzUxYTVmIiwiaCI6Im11cm11cjY0In0="
+      const apiKey = process.env.REACT_APP_MAPBOX_TOKEN;
 
 
       const coords = [
