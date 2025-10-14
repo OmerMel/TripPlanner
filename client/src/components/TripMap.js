@@ -59,12 +59,12 @@ function TripMap({ startPoint, endPoint, waypoints }) {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      <Marker position={[startPoint.lat, startPoint.lng]} icon={waypointIcon} />
-      <Marker position={[endPoint.lat, endPoint.lng]} icon={waypointIcon} />
+      {/*<Marker position={[startPoint.lat, startPoint.lng]} icon={waypointIcon} />*/}
+      {/*<Marker position={[endPoint.lat, endPoint.lng]} icon={waypointIcon} />*/}
 
-      {/*{[startPoint, ...waypoints, endPoint].map((p, i) => (*/}
-      {/*    <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon} />*/}
-      {/*))}*/}
+      {[startPoint, ...waypoints, endPoint].map((p, i) => (
+          <Marker key={i} position={[p.lat, p.lng]} icon={waypointIcon} />
+      ))}
 
       {routeCoords.length > 0 && (
         <Polyline positions={routeCoords} color="blue" />
