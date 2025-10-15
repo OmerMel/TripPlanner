@@ -7,6 +7,7 @@ server/dist
 
 # environment
 /server/.env
+/client/.env
 
 # logs
 *.log
