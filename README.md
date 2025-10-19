@@ -81,6 +81,7 @@ client/
 │  ├─ reportWebVitals.js             # Performance analytics setup
 │  └─ setupTests.js                  # Jest configuration for testing
 │
+├─ .env                              # Environment variables for client configuration
 └─ package.json                      # Client dependencies and scripts
 ```
 
