@@ -5,6 +5,12 @@ An intelligent **AI-powered trip planning platform** built with the **MERN stack
 
 ---
 
+## 🪲 Known Bugs
+   - The LLM returns random points unrelated to the daily details.
+   - The map fails to generate a route.
+
+---
+
 ## 🚀 Key Features
 
 ### 🌎 General
