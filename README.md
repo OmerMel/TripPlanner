@@ -25,7 +25,7 @@ An intelligent **AI-powered trip planning platform** built with the **MERN stack
 - **Swagger API docs** for backend testing
 
 ### 🤖 AI Layer
-- Uses OpenAI (`gpt-5-nano-2025-08-07`) for realistic, detailed trip descriptions.  
+- Uses OpenAI (`gpt-5-mini-2025-08-07`) for realistic, detailed trip descriptions.  
 - Output strictly follows JSON schema (`tripDescription`, `route`, `dailyBreakdown`, etc.).  
 - Post-validation ensures all points are on land using a local `water_osm.geojson` index.  
 ---
