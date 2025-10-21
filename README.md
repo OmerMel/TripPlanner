@@ -182,6 +182,7 @@ server/
 | `GET` | `/api/trips/:id` | Retrieve a single trip |
 | `DELETE` | `/api/trips/:id` | Delete a saved trip |
 | `GET` | `/api/weather?lat=..&lng=..` | Get 3-day forecast |
+| 'POST' | '/api/directions' | Proxy endpoint for OpenRouteService route generation (returns walking route GeoJSON) |
 
 
 ---
