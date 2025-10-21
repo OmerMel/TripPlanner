@@ -6,42 +6,50 @@ import "leaflet/dist/leaflet.css";
 function TripMap({ startPoint, endPoint, waypoints }) {
   const [routeCoords, setRouteCoords] = useState([]);
 
-  useEffect(() => {
-    const fetchRoute = async () => {
-      const apiKey = process.env.REACT_APP_MAPBOX_TOKEN;
+    useEffect(() => {
+        const fetchRoute = async () => {
+            try {
+                const coords = [
+                    [startPoint.lng, startPoint.lat],
+                    ...[...(waypoints || [])].sort((a,b) => (a.order ?? 0) - (b.order ?? 0))
+                        .map(wp => [wp.lng, wp.lat]),
+                    [endPoint.lng, endPoint.lat],
+                ].filter(([lng, lat]) =>
+                    Number.isFinite(lng) && Number.isFinite(lat)
+                );
 
+                if (coords.length < 2) return;
 
-      const coords = [
-        [startPoint.lng, startPoint.lat],
-        ...waypoints
-          .sort((a, b) => a.order - b.order)
-          .map((wp) => [wp.lng, wp.lat]),
-        [endPoint.lng, endPoint.lat],
-      ];
+                const res = await fetch("/api/directions", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        profile: "foot-walking",
+                        coordinates: coords, // [lng,lat]
+                    }),
+                });
 
-      const url = `https://api.openrouteservice.org/v2/directions/foot-walking/geojson`;
-      try {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: apiKey,
-          },
-          body: JSON.stringify({ coordinates: coords }),
-        });
+                if (!res.ok) {
+                    const errText = await res.text();
+                    console.error("Routing proxy error:", res.status, errText);
+                    setRouteCoords([]);
+                    return;
+                }
 
-        const data = await res.json();
-        const route = data.features[0].geometry.coordinates.map(
-          ([lng, lat]) => [lat, lng]
-        ); // Back to leaflet format
-        setRouteCoords(route);
-      } catch (err) {
-        console.error("Routing error:", err);
-      }
-    };
+                const data = await res.json();
+                const line = data?.features?.[0]?.geometry?.coordinates || [];
 
-    fetchRoute();
-  }, [startPoint, endPoint, waypoints]);
+                const route = line.map(([lng, lat]) => [lat, lng]); // -> Leaflet [lat,lng]
+                setRouteCoords(route);
+            } catch (e) {
+                console.error("Routing fetch failed:", e);
+                setRouteCoords([]);
+            }
+        };
+
+        fetchRoute();
+    }, [startPoint, endPoint, waypoints]);
+
 
   // pin icon for waypoints
   const waypointIcon = new L.Icon({
