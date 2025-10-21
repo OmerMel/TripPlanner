@@ -74,7 +74,7 @@ If you detect that a coordinate you provided is in the sea, adjust the route so 
 
 async function callOnce(openai, prompt) {
     const completion = await openai.chat.completions.create({
-        model: "gpt-5-nano-2025-08-07",
+        model: "gpt-5-mini-2025-08-07",
         messages: [
             { role: "system", content: "You are a expert trip planner." },
             { role: "user", content: prompt },
