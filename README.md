@@ -9,6 +9,7 @@ An intelligent **AI-powered trip planning platform** built with the **MERN stack
    - The LLM returns random points unrelated to the daily details.
    - ~~The map fails to generate a route.~~ fixed
    - AI returns water coordinates that aren’t being filtered or corrected by the code.
+   - The LLM takes too long to generate a response.
 
 ---
 
