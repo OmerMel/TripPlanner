@@ -216,6 +216,7 @@ OPENAI_API_KEY=your_openai_key
 UNSPLASH_KEY=your_unsplash_key
 JWT_SECRET=your_secret_key
 WATER_GEOJSON_PATH=./data/water_osm.geojson
+ORS_TOKEN=your_openrouteservice_key
 ```
 
 #### `/client/.env`
